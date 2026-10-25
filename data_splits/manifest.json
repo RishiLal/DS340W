@@ -1,0 +1,60 @@
+{
+    "dataset_name": "ADML Replication Data Splits",
+    "reference_paper": "Identifying Factors via Automatic Debiased Machine Learning (Maasoumi et al., 2023)",
+    "total_months": 498,
+    "split_ratios": {
+        "training": 0.7,
+        "testing": 0.2,
+        "validation": 0.1
+    },
+    "splits": {
+        "training_70": {
+            "months": 348,
+            "percentage": 69.88,
+            "start_date": 19760730,
+            "end_date": 20050630,
+            "row_indices": [
+                0,
+                347
+            ]
+        },
+        "testing_20": {
+            "months": 100,
+            "percentage": 20.08,
+            "start_date": 20050729,
+            "end_date": 20131031,
+            "row_indices": [
+                348,
+                447
+            ]
+        },
+        "validation_10": {
+            "months": 50,
+            "percentage": 10.04,
+            "start_date": 20131129,
+            "end_date": 20171229,
+            "row_indices": [
+                448,
+                497
+            ]
+        }
+    },
+    "datasets": {
+        "factors": {
+            "columns": 150,
+            "features": "150 equity risk factor returns + RF + Date"
+        },
+        "port_3x2_excess": {
+            "columns": 750,
+            "features": "750 bivariate sorted portfolios with >= 10 stocks"
+        },
+        "port_5x5_excess": {
+            "columns": 1825,
+            "features": "1825 fine-sorted portfolios with >= 10 stocks"
+        },
+        "port_202_excess": {
+            "columns": 202,
+            "features": "202 anomaly portfolios from Giglio and Xiu (2021)"
+        }
+    }
+}

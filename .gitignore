@@ -1,0 +1,40 @@
+# Default: ignore all root files and directories
+*
+.*
+
+# Allow required directories to be entered
+!/data_splits/
+!/models/
+!/scripts/
+!/tests/
+!/resources/
+!/resources/replication_files_all/
+!/resources/replication_files_all/Identifying factors via automatic debiased machine learning (replication data)/
+
+# Whitelist contents of data_splits
+!/data_splits/**
+
+# Whitelist contents of models
+!/models/**
+
+# Whitelist contents of scripts
+!/scripts/**
+
+# Whitelist contents of tests
+!/tests/**
+
+# Whitelist contents of author replication folder
+!/resources/replication_files_all/Identifying factors via automatic debiased machine learning (replication data)/**
+
+# Whitelist .gitignore itself
+!/.gitignore
+
+# Block caches, history, and temp files inside whitelisted directories
+__pycache__/
+*.pyc
+*.pyo
+.Rhistory
+~$*
+*.tmp
+.DS_Store
+desktop.ini
