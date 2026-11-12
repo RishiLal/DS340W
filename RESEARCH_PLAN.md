@@ -55,6 +55,8 @@ The original contribution is the controlled comparison of conditioning and tunin
 | Data and author code | Current archives and all three split CSVs included. Original JKP source is linked at a fixed upstream Git commit. The publication ZIP was freshly downloaded and all 21 historical members passed verification. That ZIP supplies exact analysis code, datasets and metadata used by the native run. [Data inventory](DATA_AND_SOURCES.md) |
 | Publication and course work | A local JKP-only release branch has been prepared. Prior work includes a US recording workflow and abstract/introduction/literature-review drafts. Public JKP branch, signed-out viewing, external-machine execution, final manuscript, final talk, video status and LMS receipts require separate evidence. |
 
+**Release replay on November 11.** A new local Git clone with the upstream submodule and a new Python environment passed all nine unit tests and regenerated five primary and five diagnostic files byte-for-byte, including the paired draws. The clone used the same Windows laptop and base R. A separate recomparison of the November 8 native CSVs recovered all 23 Table I matches and both headline counts. The new US benchmark used the preinstalled R packages. [Machine-readable release check and hashes](reference/release_check_20261111.json)
+
 ## Three working days, Eastern time
 
 These are working targets for November 12–14. The course portal controls deadlines. The earlier checklist lists November 15 for the dataset-split assignment; check the LMS due time and whether each item was already submitted.

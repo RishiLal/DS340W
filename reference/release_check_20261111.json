@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-11",
+  "commit_tested": "ecb1aed113fca1642b70fa925bd03b6883201cd4",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.13",
+  "numpy": "2.5.4",
+  "pandas": "3.1.1",
+  "R": "4.6.1",
+  "clone": "fresh local Git clone, new Python environment, same laptop and base R",
+  "tests_passed": 9,
+  "byte_identical_artifacts": {
+    "primary/bootstrap_results.json": "42c7bf0f8ba41e8f5db2b77dcdfad69b3bf29badcd681823c8e9b38755c93f11",
+    "primary/frozen_models.json": "04f76aa370a0b2e34f30fcdc19968caf00fa9e8dfaec25a16f94cafe73e5d336",
+    "primary/test_evaluation.json": "04d45dfa004755571ebdca0f2fd47135b1e5757fc305ad6711b3f3fbcfad3451",
+    "primary/tuning_curves.json": "65a8a002c605b961f89033a27cc94a5e79d25934eb3a7e92d0593533830db102",
+    "primary/validation_evaluation.json": "b7d9f24bf9ac561c578f688d6210ac0b4bb581f560204d5ce78f4f4556eba21c",
+    "diagnostic/contrasts.csv": "f3660f81c11487c10ae7ebc770583934ef1d8fd8ae2a4485b5f7438b34df9760",
+    "diagnostic/fits.json": "40f53776ba6dc95231327393ba1b6bd4ae9a02b0028c7686d4f6293c5741aae0",
+    "diagnostic/models.csv": "9736e6b884ba4306b1a78e58c09ebaa4ef9de3e5dfaaf9d1c2b3ecf1dd10ad26",
+    "diagnostic/paired_draws.csv": "44284cf6cb80930787ebc0ed5c297888fa263e18031a61f63891ddcdce8e4d3d",
+    "diagnostic/tuning_and_checks.json": "6c406a4cf946da5bd70a70968b20b93f6c11d6a939a798b1f2be551ce4af18a7"
+  },
+  "native_archive": {
+    "bytes": 286249432,
+    "sha256": "74e8b39430a3decdbdd7a13873f3b92c2d47fbfa03c8b8e7a590103375f39ef7",
+    "verified_file_members": 21
+  },
+  "native_US": "Fresh author benchmark in release worktree using existing R packages",
+  "broader_parent": "Table I and headline comparisons regenerated from Nov 8 native CSVs; no new full native fit",
+  "table_I_cells_matched": 23,
+  "headline": [
+    {
+      "region": "us",
+      "eligible": 119,
+      "positive": 98,
+      "fresh_pct": 82.35294117647058,
+      "paper_pct": 82.4,
+      "within_rounding": true
+    },
+    {
+      "region": "world",
+      "eligible": 119,
+      "positive": 98,
+      "fresh_pct": 82.35294117647058,
+      "paper_pct": 82.4,
+      "within_rounding": true
+    }
+  ],
+  "largest_tracked_regular_file": {
+    "path": "evidence/JKP_current_US_factors.zip",
+    "bytes": 2674337
+  },
+  "independent_machine_verified": false
+}
