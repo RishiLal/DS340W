@@ -1,0 +1,194 @@
+{
+  "date": "2026-11-12",
+  "commit_tested": "98f51e6102c5424322e2c1f474d369b8f64d65b8",
+  "fresh_clone": true,
+  "fresh_python_environment": true,
+  "same_windows_laptop": true,
+  "base_R_reused": true,
+  "status": "passed",
+  "pipeline_seconds": 18.937,
+  "stages": [
+    {
+      "name": "preflight",
+      "status": "passed",
+      "elapsed_seconds": 0.109
+    },
+    {
+      "name": "tests",
+      "status": "passed",
+      "elapsed_seconds": 5.719
+    },
+    {
+      "name": "splits",
+      "status": "passed",
+      "result": [
+        {
+          "role": "Training",
+          "first": "1975-01-31",
+          "last": "2009-12-31",
+          "months": 420,
+          "series": 154
+        },
+        {
+          "role": "Test",
+          "first": "2010-01-31",
+          "last": "2020-12-31",
+          "months": 132,
+          "series": 154
+        },
+        {
+          "role": "Validation",
+          "first": "2021-01-31",
+          "last": "2025-12-31",
+          "months": 60,
+          "series": 154
+        }
+      ],
+      "elapsed_seconds": 0.937
+    },
+    {
+      "name": "primary",
+      "status": "passed",
+      "elapsed_seconds": 2.657
+    },
+    {
+      "name": "diagnostic",
+      "status": "passed",
+      "elapsed_seconds": 9.297
+    },
+    {
+      "name": "numerical_comparison",
+      "status": "passed",
+      "result": [
+        {
+          "group": "primary",
+          "file": "bootstrap_results.json",
+          "status": "byte-identical"
+        },
+        {
+          "group": "primary",
+          "file": "frozen_models.json",
+          "status": "byte-identical"
+        },
+        {
+          "group": "primary",
+          "file": "test_evaluation.json",
+          "status": "byte-identical"
+        },
+        {
+          "group": "primary",
+          "file": "tuning_curves.json",
+          "status": "byte-identical"
+        },
+        {
+          "group": "primary",
+          "file": "validation_evaluation.json",
+          "status": "byte-identical"
+        },
+        {
+          "group": "diagnostic",
+          "file": "contrasts.csv",
+          "status": "byte-identical"
+        },
+        {
+          "group": "diagnostic",
+          "file": "fits.json",
+          "status": "byte-identical"
+        },
+        {
+          "group": "diagnostic",
+          "file": "models.csv",
+          "status": "byte-identical"
+        },
+        {
+          "group": "diagnostic",
+          "file": "paired_draws.csv",
+          "status": "byte-identical"
+        },
+        {
+          "group": "diagnostic",
+          "file": "tuning_and_checks.json",
+          "status": "byte-identical"
+        }
+      ],
+      "elapsed_seconds": 0.078
+    },
+    {
+      "name": "tables",
+      "status": "passed",
+      "elapsed_seconds": 0.062
+    }
+  ],
+  "python": "3.12.13",
+  "numpy": "2.5.4",
+  "pandas": "3.1.1",
+  "R": "Rscript (R) version 4.6.1 (2026-06-24)",
+  "negative_checks": {
+    "existing_destination_rejected_without_modification": true,
+    "optimized_python_rejected_before_writing": true,
+    "corrupted_input_failed_with_saved_logs_before_fitting": true
+  },
+  "source_and_input_sha256": {
+    "diagnostic/run.py": "cf870b69abe13e0bd73d88ff12b2c265fcaf1cc8cc8dc66d2287252678c47ba9",
+    "evidence/JKP_current_US_factors.zip": "f766aa2c7db1f97594f79f9063275161b7038e936db9ea960eac6eb7ec27ca80",
+    "evidence/JKP_current_US_market.zip": "a90c1f2c8e89bf5cc45219d8f678696458412f19380769448bbaa2c9cc567752",
+    "extension_20261108/__init__.py": "6bc0e335fef02018189ceabbea8d1183ed77f0eed886c92dee6ec5cbff8156c9",
+    "extension_20261108/clustering.py": "5d2ea2677222be5d976282f41471b6bb377d2a38b7c6e8ce339cb77daa580752",
+    "extension_20261108/data.py": "645a9f77443a661f6b7442741efae21a08481bc5cc3fe0649c06bacc128a7c38",
+    "extension_20261108/evaluate.py": "04d2f4fede116a1268140d98abb823eba9b33dc6dc1fc6d8fb6fa4bda6730623",
+    "extension_20261108/models.py": "b2c80067ef11a002fa89d6cd5772db525456f7e8f471084a45231f5aa48b7a1f",
+    "extension_20261108/run_extension.py": "1f4932d2bdd748418880a3bea71f1e3ad695b6aead86831c4496a1e19ffd799f",
+    "extension_20261108/test_pipeline.py": "832f66dd12fca0c84f2116050fa7e934f1209791cf24b34cbcb8e4c0f9f55ce0",
+    "extension_20261108/tuning.py": "6f9a121c1f6118a26d1f7ade0c520e3baedd1a82d11be6d47498435d7bcca36f",
+    "pipeline.py": "68da5a4bf715297a9e8b3a30d2c76282dd991eb84f2247225f0f44794722b443",
+    "protocol/config.json": "5363e687af288c2e35bfe757d30fa6c44b081c226df81e4ab2f6acf956db7444",
+    "protocol/DIAGNOSTIC_20261111.md": "4b813893840cdc067c1cafea0a686515ea299e45373c1bbf9263a8afff531df3",
+    "protocol/METHOD_AMENDMENT_20261107.md": "7796b2be99f8d6e673d9c490472daf09efd451e96efbd488d430db680a23c723",
+    "protocol/METHODOLOGY_PROPOSED.md": "6a4fa9a230f3e389058d31efe845e428a9b3cfe21bd08923f120a35bef8734f8",
+    "protocol/OUTER_PROTOCOL_20261107.md": "ce46de14da6570969bd847d3e862fc9b59a968e87f4b6f2540daa94d805f938c",
+    "tools/build_results.py": "e7b7e603253326cd9f1a724d01a36dd71a01f5819f616c1e6749ae69558c5b4a",
+    "tools/compare_native.py": "d8ef9216f36a27f5504da3361c64c153829054c5cc88774e9d0d64c70fe427d0",
+    "tools/prepare_splits.py": "924d8f2ae2cb41f0eef6ce5d7dd6337556f8d668c2cfb67549ead6ce4dd8c0fb",
+    "tools/verify_replay.py": "17fefd6373735f4d5bf338d399424d5e7fae49adce4a14dafaeef99cc463ec8a"
+  },
+  "outputs_sha256": {
+    "diagnostic/contrasts.csv": "f3660f81c11487c10ae7ebc770583934ef1d8fd8ae2a4485b5f7438b34df9760",
+    "diagnostic/fits.json": "40f53776ba6dc95231327393ba1b6bd4ae9a02b0028c7686d4f6293c5741aae0",
+    "diagnostic/models.csv": "9736e6b884ba4306b1a78e58c09ebaa4ef9de3e5dfaaf9d1c2b3ecf1dd10ad26",
+    "diagnostic/paired_draws.csv": "44284cf6cb80930787ebc0ed5c297888fa263e18031a61f63891ddcdce8e4d3d",
+    "diagnostic/tuning_and_checks.json": "6c406a4cf946da5bd70a70968b20b93f6c11d6a939a798b1f2be551ce4af18a7",
+    "logs/diagnostic.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs/numerical_comparison.log": "332c9cf5f157b89ebeb14a9842318c21179bfcf0b37e5921dc7dae6d6c26c1f9",
+    "logs/preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs/primary.log": "e06131c82306096206dc590d33f5959339900e3c6a765ff21beea8370922bdc7",
+    "logs/splits.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs/tables.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "logs/tests.log": "ed4c04fd7b1030ebffa1571acd5dd59ae34756c2d21d4a7fcc6bb41eff4f1749",
+    "primary/bootstrap_results.json": "42c7bf0f8ba41e8f5db2b77dcdfad69b3bf29badcd681823c8e9b38755c93f11",
+    "primary/frozen_models.json": "04f76aa370a0b2e34f30fcdc19968caf00fa9e8dfaec25a16f94cafe73e5d336",
+    "primary/summary_table.md": "4a2fe0d24cfb0b1a4ee88f5825b8ba6cb4e17b2580f9c78b403b26f2f50b3eb3",
+    "primary/test_evaluation.json": "04d45dfa004755571ebdca0f2fd47135b1e5757fc305ad6711b3f3fbcfad3451",
+    "primary/training_transforms.json": "008fc9c7bd415a0796edd18a1b20ff84521b0a479eedd966483a5c3384a80190",
+    "primary/tuning_curves.json": "65a8a002c605b961f89033a27cc94a5e79d25934eb3a7e92d0593533830db102",
+    "primary/validation_evaluation.json": "b7d9f24bf9ac561c578f688d6210ac0b4bb581f560204d5ce78f4f4556eba21c",
+    "splits/manifest.json": "415710d4f96804e79ab08b63e56b42e584eb5ed1f00e078642d5e100f5e04b2a",
+    "splits/Market_warmup_1974.csv": "7ae27c314a93e628302e45f171e300fd8d8ac0ecd59a062cb8df01a45e7825d5",
+    "splits/Test.csv": "097bbaf87b86812bf3a2c3681cd251db258a9848b94158a8971e53d26ab8e06c",
+    "splits/Training.csv": "d6ddf05a8fc6870cdc4bebe00599db0eff951799e9f02ae12cdebfaaf39c8479",
+    "splits/Validation.csv": "77de85d8b0be236a754b7b25aae66deb0e0e13fe1f1e559d68deef1fcf1adda4",
+    "tables/diagnostic_contrasts.csv": "f3660f81c11487c10ae7ebc770583934ef1d8fd8ae2a4485b5f7438b34df9760",
+    "tables/method_details.json": "71f50cbcc99f2264fbf5ff33753551a0bc346665105d2f68f4cdde339c96c6d9",
+    "tables/METHODS_AND_RESULTS.md": "fc51d4a2ccca711856db1d4ee86aca854f380207a60d7524834f77ce28ab2337",
+    "tables/primary_contrasts.csv": "315657ac195d8be5028749e7f3fa9a060c71f81d1860e0b52cede7ca7df57f07",
+    "tables/primary_contrasts.md": "7ce46eb3426ac9e4b6ccc97eae4a1c802303634d1f5f8d64201adc3166fbfe73",
+    "tables/test_diagnostic.csv": "20bacfe8066e0b1ed7b5e7cea497d2705c09d36bfc1029ade451f3358b48c192",
+    "tables/test_diagnostic.md": "da01d73d11c513870cb9882a340bacfe8924775639ba47496a27ed176a18fac0",
+    "tables/test_primary.csv": "947cf3d902add348b0e168bf58c6bbb21ceedb57158d8f5c8235784096cc6a07",
+    "tables/test_primary.md": "803ec38a29b21d721bd0d007aba82cd737cb7b2e9dc218918eafa7dc8b3e3930",
+    "tables/validation_diagnostic.csv": "750ebd469b2d5c700685dd7d5bb05228c44b37dd19ae631d6328085ec1ec9be9",
+    "tables/validation_diagnostic.md": "a6a5119ea87c90a3d0292c67a98c1ad63b24d562b7cb11888faad36fe3201062",
+    "tables/validation_primary.csv": "ad45172108124a7b67347af42c1352877b73b2a7cd23bc7d9fc8ccede3d6e9a3",
+    "tables/validation_primary.md": "1854daf030c3ecde3cdc462c4b40838c327ffb509fc9cdaa68adcdada371144b"
+  },
+  "independent_machine_verified": false
+}

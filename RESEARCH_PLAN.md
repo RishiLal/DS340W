@@ -46,7 +46,9 @@ The original contribution is the controlled comparison of conditioning and tunin
 
 ## Completion ledger
 
-**November 12 pipeline update.** `python pipeline.py` now rebuilds the three split CSVs and market warm-up from the pinned archives, fits both experiments, checks ten numerical reference outputs and generates the manuscript tables in a fresh run folder. Use the run's `tables/METHODS_AND_RESULTS.md` for the implemented method and `run_manifest.json` for status and provenance. The overnight Gemini audit tables misdescribed the volatility state, Goldilocks selector and parameter counts. Use the regenerated tables for writing.
+**November 12 pipeline update.** `python pipeline.py` now rebuilds the three split CSVs and market warm-up from the pinned archives, fits both experiments, checks ten numerical reference outputs and generates the manuscript tables in a fresh run folder. A fresh local clone and new Python environment passed all seven stages in 18.9 seconds, with all ten numerical outputs byte-identical. Existing output directories and Python optimization are rejected before writing. An altered input caused a recorded failure before fitting. Use the run's `tables/METHODS_AND_RESULTS.md` for the implemented method and `run_manifest.json` for status and provenance. The overnight Gemini audit tables misdescribed the volatility state, Goldilocks selector and parameter counts. Use the regenerated tables for writing. [Verification record](reference/pipeline_check_20261112.json)
+
+**Current priorities.** Data splitting, both implemented experiments, numerical replay and table generation now have one entry point. Next, write the final methods/results sections using the generated tables, complete the course presentations, and check the pipeline on a second machine when available. The parent benchmark evidence is already recorded. Publication awaits Rishi's review and explicit approval.
 
 | Item | Evidence and status |
 |---|---|
