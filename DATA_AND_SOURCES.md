@@ -1,0 +1,16 @@
+# Inputs, author code and attribution
+
+Theis Ingerslev Jensen, Bryan Kelly and Lasse Heje Pedersen, “Is There a Replication Crisis in Finance?”, *The Journal of Finance* 78(5), 2465–2518 (2023). [Journal article](https://doi.org/10.1111/jofi.13249) · [Authors’ published PDF](https://research-api.cbs.dk/ws/portalfiles/portal/95651880/theis_ingerslev_jensen_et_al_is_there_a_replication_crisis_in_finance_publishersversion.pdf)
+
+| Material | Where to get the exact input | Verification and use |
+|---|---|---|
+| Author repository | `upstream/ReplicationCrisis` is an upstream Git submodule, commit `67174c7f170bf8b952b3c86876f187fd9970b5ba`. Initialize with `git submodule update --init`. | Browse original R analysis and SAS/R construction code. Its revision differs from the frozen publication archive. |
+| Original publication archive | `python replicate.py acquire --archive evidence/JKP_original_data.zip`. A verified local copy can also be supplied with `--archive`. | 286,249,432 bytes, SHA-256 `74e8b39430a3decdbdd7a13873f3b92c2d47fbfa03c8b8e7a590103375f39ef7` on Nov 11. The prepare command checks every one of the 21 member files against the published-release snapshot in this repo. It extracts the paper's R analysis, metadata and the three processed CSVs hml, cmp and market_returns for execution. The ZIP also preserves the original construction code. |
+| Extension inputs | `evidence/JKP_current_US_factors.zip` and `evidence/JKP_current_US_market.zip` are bundled verbatim, including pre-1975 lag history. | Updated through Dec 2025. Monthly USA, capped-value weighted, excess returns in USD, decimal units. Factor direction already applied. Each run verifies the two ZIP hashes. |
+| Assignment exports | `data/splits/Training.csv`, `Test.csv` and `Validation.csv` in the same directory. | Derived exports with date and 154 ordered series. Selected 153 factors, appended market, joined by month, partitioned chronologically. Diagnostic replay checks the concatenated panel against the inputs (absolute tolerance 1e-15 for CSV parsing). |
+| Historical security-level data | The public archive supplies portfolio returns. Appendix C decomposition and Table J.3 country statistics require additional historical stock-level inputs. | These two analyses are outside the reproduced scope. The current WRDS panel has subscription access and a different vintage. |
+
+© 2026 Jensen, Kelly and Pedersen. The authors’ data download page identifies its data license as CC BY-NC 4.0. The two current archives and the derived course splits are provided for noncommercial reuse under those terms with attribution. The historical publication package is acquired directly from the authors. Different release dates and weighting definitions make the two vintages scientifically distinct. [Authors’ data and notices](https://jkpfactors.com/data) · [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) · [Historical analysis and archive link](https://github.com/bkelly-lab/ReplicationCrisis/tree/master/Analysis)
+
+The remaining two source papers motivate design choices. Their software and training datasets are unnecessary to reproduce these experiments. [Chen, Pelger and Zhu](https://doi.org/10.1287/mnsc.2023.4695) · [Ciganovic, D’Amario and Tancioni](https://arxiv.org/abs/2603.10999)
+

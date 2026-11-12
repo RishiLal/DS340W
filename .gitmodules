@@ -1,0 +1,3 @@
+[submodule "upstream/ReplicationCrisis"]
+	path = upstream/ReplicationCrisis
+	url = https://github.com/bkelly-lab/ReplicationCrisis.git

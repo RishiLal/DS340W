@@ -1,0 +1,68 @@
+# JKP research plan and completion checklist
+
+**Research record for November 11, 2026.** Rishi Lal’s DS340W project asks whether a predictable market-volatility state improves later pricing of US factor portfolios. The parent reproduction, primary experiment and post-hoc diagnostic answer three different questions. Their inputs and reference results are saved separately in this release.
+
+## How the three papers connect
+
+| Paper | What the project uses | Where to verify it |
+|---|---|---|
+| Jensen, Kelly and Pedersen (2023), *Is There a Replication Crisis in Finance?* | Native benchmark estimates empirical Bayes factor alphas and dispersion. The extension takes the US factor payoffs and JKP’s clustering approach. In each training prefix, adjust factors for market exposure, cluster by Ward.D on 1 minus return correlation, scale each raw factor by its own training SD, average within 13 groups, then add the scaled market. | [Article](https://doi.org/10.1111/jofi.13249) · [Author sources and pinned data](DATA_AND_SOURCES.md) · [Theme construction](extension_20261108/clustering.py) |
+| Chen, Pelger and Zhu (2024 journal issue), *Deep Learning in Asset Pricing* | Their conditional Euler restrictions motivate testing an SDF on ordinary returns and returns multiplied by previously known information. Here one specified volatility instrument constructs the managed payoffs. The extension uses a linear ridge SDF. Its follow-up also allows the SDF weights to depend on that state. | [Article](https://doi.org/10.1287/mnsc.2023.4695) · [Fitting and scoring](extension_20261108/models.py) |
+| Ciganovic, D’Amario and Tancioni (2026), *Double Machine Learning for Time Series* | Adapt the authors’ Goldilocks local-window selection rule to the project’s pricing-error curve. Compare it with the grid minimum using time-ordered expanding training folds. | [Paper and journal record](https://arxiv.org/abs/2603.10999) · [Folds and selector](extension_20261108/tuning.py) |
+
+The original contribution is the controlled comparison of conditioning and tuning on identical dates, assets and pricing moments, plus the separately dated test of state-dependent coefficients. The project estimates historical pricing performance. Claims about implementing a GAN, reverse cross-fitting, DML causal inference, individual-factor significance or priority over all prior work would exceed that evidence.
+
+## Agreed research questions and hypotheses
+
+1. **RQ1, primary.** Under Goldilocks tuning, does including lagged-volatility-managed positions in fitting reduce later pricing loss? Write U for fitting ordinary payoffs, C for fitting ordinary plus managed payoffs, G for Goldilocks and M for minimum error. Define ΔG = L(C,G) − L(U,G). H1 predicts a negative expected difference conditional on frozen fits. H0 is a nonnegative difference.
+2. **RQ2, secondary.** Does stability tuning make that change more favorable? Define ΔM analogously and I = ΔG − ΔM. H2 predicts a negative interaction. The complementary null is nonnegative. Report both component contrasts alongside I.
+3. **Post-hoc diagnostic.** Given the same conditional fitting payoffs, does adding 14 volatility interactions to the SDF’s 14 theme and market coefficients lower loss? The lead contrast compares separately Goldilocks-tuned two-sided and static conditional fits. The matched contrast uses the exact saved static conditional penalty. Each directional alternative is a negative difference; its complementary null is nonnegative. Minimum-error tuning, comparison with U and the change due to re-tuning are reported separately. Both later periods’ primary outcomes were already known when this question was formulated. [Diagnostic protocol](protocol/DIAGNOSTIC_20261111.md)
+
+## Frozen design
+
+- Public historical archive for the native reproduction. For every extension partition use the same updated vintage of USA capped-value-weighted, monthly, already signed USD excess returns. The 1974 market history supplies the first lag window. Screen only the first 210 training months for complete returns, nonzero variation and at least five stocks per leg. The 153 factors and market give 154 ordinary assets.
+- Training Jan 1975–Dec 2009 (420 months), development Test Jan 2010–Dec 2020 (132), final Validation Jan 2021–Dec 2025 (60). Within Training, fit on prefixes of 210, 280 and 350 and score each on its next 70 months. Learn every scale, cluster, state cutoff and state frequency inside the corresponding prefix. Final fits use all 420 months. Data loading reads complete archives; fitting and tuning use date-restricted slices. Both later periods have been scored.
+- Use the prior 12 market excess returns’ sample SD. High volatility means strictly above the training two-thirds quantile. Center and scale the indicator by its training frequency to obtain h. Every model faces Q = [X, hX] for scoring. U fits X alone and C fits Q. Both original SDFs have 14 coefficients and intercept one. Ridge uses denominator 154 in both training objectives. Loss is the average over 308 **squared period-mean discounted payoffs**. Restore individual return scales before reporting ordinary MAE in monthly basis points.
+- Tune on 31 log-spaced penalties from 1e−8 to 10. Pool squared loss equally across folds, then take the square root. G uses three adjacent penalties, minimizing normalized window mean plus normalized variance, then takes the lowest-error penalty within that window. First index breaks ties. Both original global minima lie in their winning window (about 1.26, 2.51, 5.01).
+- For uncertainty, resample entire monthly vectors jointly across all assets and models with frozen coefficients. Seed 340, 999 moving-block draws, 12 months primary and 6 sensitivity. With 60 validation months, results are descriptive and sensitive to the period. These intervals condition on the fitted models.
+
+[Outer protocol](protocol/OUTER_PROTOCOL_20261107.md) · [Method amendment](protocol/METHOD_AMENDMENT_20261107.md) · [Machine-readable config](protocol/config.json) · [Source hashes](reference/input_and_protocol_hashes.json)
+
+## Results on disk
+
+| Question or comparison | Development, 132 months | Final Validation, 60 months |
+|---|---:|---:|
+| U under either rule, scaled squared loss | 0.00778140 | 0.01534692 |
+| Static C under either rule, same loss | 0.00770763 | 0.01647338 |
+| RQ1 ΔG (also ΔM) | −0.00007376 | +0.00112646 |
+| RQ2 interaction | 0 | 0 |
+| Post-hoc two-sided G minus static C, separate penalties | −0.00012550 | +0.00126954 |
+| Post-hoc two-sided minus static C at the static model’s penalty | −0.00014215 | +0.00005640 |
+| High / low volatility months | 45 / 87 | 22 / 38 |
+
+**Primary finding.** Adding the managed positions during fitting raised observed validation squared pricing loss by 7.34%. The paired 12-month 95% interval for ΔG was [−0.000278, +0.007289]; the 6-month sensitivity was [−0.000562, +0.005995]. Managed positions’ contribution to validation loss fell from 0.003448 to 0.003399, while the ordinary contribution rose from 0.011899 to 0.013075. Both selectors chose 1.2589254 for U and 2.5118864 for C. Identical fits within each class give an exactly zero observed interaction, including in the paired resamples. Neither directional hypothesis received support on this endpoint. [Primary table](reference/primary/summary_table.md) · [Frozen coefficients](reference/primary/frozen_models.json)
+
+**Post-hoc finding.** Giving the SDF 28 coefficients improved the development point estimate and worsened the later one. In Validation the separately tuned model’s loss was 0.01774292. Its difference from static C had a 12-month paired interval [−0.000600, +0.008900]. At the matched penalty its loss was 0.01652978 and its difference interval was [−0.000472, +0.003473]. Both tuning rules selected the top of the prespecified grid (10) for the 28-weight model. Its separately tuned validation loss also exceeded U by 0.00239600. The matched comparison indicates how much of the observed difference persists at fixed shrinkage. The intervals leave the population direction uncertain. [Both period tables](reference/diagnostic/models.csv) · [All contrasts and intervals](reference/diagnostic/contrasts.csv) · [Tuning and numerical checks](reference/diagnostic/tuning_and_checks.json)
+
+## Completion ledger
+
+| Item | Evidence and status |
+|---|---|
+| Parent US demonstration | Fresh Nov 11 run at the original 10,000 draws returned 0.35088% and 0.20946% against printed 0.35% and 0.21%. 98/119 originally significant factors met the US replication criterion (82.4%). [Fresh run](reference/parent/fresh_US_20261111.json) |
+| Broader public parent driver | Executed in the historical workspace. All 23 printed Table I cells matched and US/world each gave 98/119. Thirty-seven figure PDFs were checked for rendered content. Panel-by-panel numerical validation and two stock-level ancillary analyses remain open. Reported compatibility changes are documented in the README. [Comparisons](reference/parent/comparison_status.json) · [Figure checks](reference/parent/core_and_figure_checks.json) |
+| Primary implementation | Four fitted models, tuning curves, two period evaluations and paired bootstrap are stored. The five numerical JSON outputs matched byte-for-byte in the Nov 8 same-laptop clean-Python replay and again in the Nov 11 release replay. [Primary artifacts](reference/primary) |
+| Diagnostic implementation | Nov 11 protocol fixed, full grid fitted and checked, both later periods scored, training transforms, coefficients, decompositions, draws and intervals saved. An independent least-squares algorithm agreed to within 2.1e−12 in coefficient-vector norm over the checked prefixes/grid. [Implementation](diagnostic/run.py) · [Outputs](reference/diagnostic) |
+| Data and author code | Current archives and all three split CSVs included. Original JKP source is linked at a fixed upstream Git commit. The publication ZIP was freshly downloaded and all 21 historical members passed verification. That ZIP supplies exact analysis code, datasets and metadata used by the native run. [Data inventory](DATA_AND_SOURCES.md) |
+| Publication and course work | A local JKP-only release branch has been prepared. Prior work includes a US recording workflow and abstract/introduction/literature-review drafts. Public JKP branch, signed-out viewing, external-machine execution, final manuscript, final talk, video status and LMS receipts require separate evidence. |
+
+## Three working days, Eastern time
+
+These are working targets for November 12–14. The course portal controls deadlines. The earlier checklist lists November 15 for the dataset-split assignment; check the LMS due time and whether each item was already submitted.
+
+1. **Overnight Nov 11–12 — reproduce and audit (Gemini).** Follow the separate local-agent handoff. Clone the release branch locally, set up pinned Python, initialize the author submodule, run nine tests and both analyses, compare saved files, and fetch and verify the original ZIP. Run the US demo. Use remaining time for the full native cold run and the paper-to-output ledger. Record environment reuse, exact failures and a safe resume command. Deliver a morning report with the commit, commands, hashes, differences and terminal status. Treat any scientific mismatch as an audit finding.
+2. **Thursday Nov 12 — sign off on evidence (Rishi).** Read the morning report and inspect the parent comparison, primary table and two diagnostic contrasts. Verify the adverse result and denominator by hand from the loss table. Confirm LMS requirements and receipts for parent approval, code demonstration, 3+ pages of opening sections and split assignment. Submit the three JKP CSVs if due. Confirm that a fresh reader can locate the methods and results from the release README. If available, run the documented sequence on a second machine/VM. Reserve broader native troubleshooting for after the extension checks.
+3. **Friday Nov 13 — write and prepare the GitHub version (Rishi).** Use your latest reviewed draft. Finish data, methods, results, limits, conclusion and reproducibility appendix. Include original Table I/98-of-119 checks, the primary 2×2 table, block intervals, and one separately labeled post-hoc table. State when the diagnostic was designed. Reconcile citations, sample denominators, units, figure captions and every manuscript number against the saved files. Review the release diff, data attribution, source pointer and largest files. Push the reviewed branch when ready and use its branch-specific or commit-specific GitHub URL for the assignment.
+4. **Saturday Nov 14 — verify the submitted version (Rishi).** Clone from the public URL, including submodules, from a clean environment; log the commit and degree of independent reproduction reached. Test the README and archive links signed out. Use the US demo for the recording, verify the unlisted Kaltura link and playback, and check the rubric for the public repo URL, published paper and data links. Finish slides with one chart or table per research question. Rehearse twice within the assigned time. Archive the final paper PDF, slides, video link, commit and submission receipts together.
+
+**If time is short:** prioritize the verified parent benchmark, both primary hypotheses, the matched diagnostic, reproducible source/data access and the course deliverables. For a native simulation still running, cite the earlier verified scope and show the pending run separately. Independent-machine evidence and panel-level figure checks can only be credited once completed.
+

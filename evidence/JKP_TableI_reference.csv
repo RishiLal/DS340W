@@ -1,0 +1,12 @@
+sample,tau_c_pct,tau_w_pct,tau_s_pct
+us,0.35,0.21,
+developed,0.24,0.18,
+emerging,0.32,0.24,
+all,0.30,0.19,0.10
+world,0.37,0.23,
+world_ex_us,0.29,0.20,
+us_mega,0.26,0.16,
+us_large,0.31,0.18,
+us_small,0.44,0.26,
+us_micro,0.48,0.32,
+us_nano,0.42,0.28,

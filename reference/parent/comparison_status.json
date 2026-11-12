@@ -1,0 +1,23 @@
+{
+  "table_cells": 23,
+  "table_matched": 23,
+  "headline": [
+    {
+      "region": "us",
+      "eligible": 119,
+      "positive": 98,
+      "fresh_pct": 82.35294117647058,
+      "paper_pct": 82.4,
+      "within_rounding": true
+    },
+    {
+      "region": "world",
+      "eligible": 119,
+      "positive": 98,
+      "fresh_pct": 82.35294117647058,
+      "paper_pct": 82.4,
+      "within_rounding": true
+    }
+  ],
+  "scope": "Table I and originally significant US/world EB rates from computed model objects. Other numerical outputs require separate assessment."
+}

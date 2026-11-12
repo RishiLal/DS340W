@@ -1,0 +1,146 @@
+{
+  "core": {
+    "table_cells": 23,
+    "table_matched": 23,
+    "headline": [
+      {
+        "region": "us",
+        "eligible": 119,
+        "positive": 98,
+        "fresh_pct": 82.35294117647058,
+        "paper_pct": 82.4,
+        "within_rounding": true
+      },
+      {
+        "region": "world",
+        "eligible": 119,
+        "positive": 98,
+        "fresh_pct": 82.35294117647058,
+        "paper_pct": 82.4,
+        "within_rounding": true
+      }
+    ],
+    "scope": "Table I and originally significant US/world EB rates from computed model objects. Other numerical outputs require separate assessment."
+  },
+  "pdf_count": 37,
+  "pdf_files_with_ink": 37,
+  "all_pdf_pages_nonwhite_pixels": {
+    "ci_many_fcts.pdf": [
+      30170
+    ],
+    "cluster_plus_market.pdf": [
+      50707
+    ],
+    "eb_sig_oos.pdf": [
+      2774
+    ],
+    "effect_regions.pdf": [
+      32238
+    ],
+    "effect_size.pdf": [
+      35751
+    ],
+    "excl_cluster.pdf": [
+      27679
+    ],
+    "factor_tpf_imp.pdf": [
+      16953
+    ],
+    "factor_tpf_imp_cluster.pdf": [
+      26568
+    ],
+    "gl_by_cluster.pdf": [
+      43655
+    ],
+    "gl_by_factor.pdf": [
+      16912
+    ],
+    "is_post.pdf": [
+      2719
+    ],
+    "is_post_quad.pdf": [
+      3425
+    ],
+    "is_pre.pdf": [
+      2566
+    ],
+    "is_pre_post.pdf": [
+      2764
+    ],
+    "is_pre_post_quad.pdf": [
+      3275
+    ],
+    "is_pre_quad.pdf": [
+      3569
+    ],
+    "lit_comp.pdf": [
+      12858
+    ],
+    "marg_sig_oos.pdf": [
+      3073
+    ],
+    "model_fdr.pdf": [
+      3752
+    ],
+    "mt_factors.pdf": [
+      18079
+    ],
+    "mt_summary.pdf": [
+      46546
+    ],
+    "over_time.pdf": [
+      19367
+    ],
+    "over_time_flex.pdf": [
+      7994
+    ],
+    "over_time_flex_taus.pdf": [
+      3531
+    ],
+    "repl_cluster_us.pdf": [
+      50579
+    ],
+    "sim_fdr.pdf": [
+      11149
+    ],
+    "sim_harvey.pdf": [
+      4127
+    ],
+    "sim_harvey_robustness.pdf": [
+      6018
+    ],
+    "size_clusters.pdf": [
+      53136
+    ],
+    "size_overall.pdf": [
+      60101
+    ],
+    "tpf.pdf": [
+      21618
+    ],
+    "tpf_evolution.pdf": [
+      6085
+    ],
+    "tpf_regions.pdf": [
+      22340
+    ],
+    "tpf_size.pdf": [
+      20568
+    ],
+    "us_hcl.pdf": [
+      14807
+    ],
+    "us_hcl_pairwise_cor.pdf": [
+      11889
+    ],
+    "world_vs_us.pdf": [
+      3071
+    ]
+  },
+  "later_below_five_stocks": 0,
+  "simulation_caption_in_paper": "Figure 3. Simulation comparison of false discovery rates . The upper panels show the real-",
+  "py_versions": {
+    "numpy": "2.5.4",
+    "pandas": "3.1.1"
+  }
+}

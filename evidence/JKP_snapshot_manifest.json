@@ -1,0 +1,86 @@
+{
+  "Country Classification.xlsx": {
+    "bytes": 11554,
+    "sha256": "f0037aee59978dba36a0a3518935cb8b2add6a733d825865e50054756ea9e0b6"
+  },
+  "Factor Details.xlsx": {
+    "bytes": 39959,
+    "sha256": "21d313570153b9f6bff3417e9134cf22bf873c94e529ace381770ad194745ce7"
+  },
+  "README.md": {
+    "bytes": 1449,
+    "sha256": "59794ae0e874911e93190ff23c6df05aec33dc2fd170c351d43ef8689dc0ceba"
+  },
+  "Code - Analysis\\0 - Functions.R": {
+    "bytes": 129442,
+    "sha256": "a9c451735e34d495303f9dad29be2c0001d917e157493b735621f30e7507fca7"
+  },
+  "Code - Analysis\\1 - Prepare Data.R": {
+    "bytes": 6761,
+    "sha256": "c54eae108d4c9c652aeede2e09ab8453fc98e7b142ab8603e1319b6463104dde"
+  },
+  "Code - Analysis\\2 - Determine Clusters.R": {
+    "bytes": 3351,
+    "sha256": "583cc4f58551c77c7c798afb5cc07fa4d92f04b47d40b2acde89d56c924ebb05"
+  },
+  "Code - Analysis\\3 - Analysis.R": {
+    "bytes": 16623,
+    "sha256": "11ad4b9b08a8560053152cf6473493ae4ac228e3f7d442da29a4cc3ac3ab5aa9"
+  },
+  "Code - Analysis\\4 - Output.R": {
+    "bytes": 23503,
+    "sha256": "014d32dba0bb649e0c046f9df63fbb01e6b40edec201c2a54d62f54bf7d01526"
+  },
+  "Code - Analysis\\country_stats.R": {
+    "bytes": 4814,
+    "sha256": "e64ce54f139f456529a19b210e8a693924e7cfc6f148695291ea23103e1282a3"
+  },
+  "Code - Analysis\\hxz_decomp.R": {
+    "bytes": 8423,
+    "sha256": "ecee9ccb13c469232c45e7f637ed91db94c70b7eb616ea1008a2cc2b394a1af1"
+  },
+  "Code - Analysis\\main.R": {
+    "bytes": 4652,
+    "sha256": "7d4ab219ff096ae6f043b45e86db7d97ad1670e389c78c7379de68938109c83a"
+  },
+  "Code - Data\\accounting_chars.sas": {
+    "bytes": 48259,
+    "sha256": "d6fa90c21edd531ffd22786cad3791a84a86be850eeb3992541b245cbc64880a"
+  },
+  "Code - Data\\char_macros.sas": {
+    "bytes": 25078,
+    "sha256": "2131357b0faa1009cadb3c7b313fbd9c413c84479b690a582efdfeddf8c41f05"
+  },
+  "Code - Data\\ind_identification.sas": {
+    "bytes": 17254,
+    "sha256": "4b4a7080d1dad1007b4a2bfe60fcde6b7753c07b1c3fea874ff844bd8c788d67"
+  },
+  "Code - Data\\main.sas": {
+    "bytes": 12034,
+    "sha256": "aaeba6d2a5bc51d211badcb071d513136dbcbd5fa381e65495e815c2f6f77221"
+  },
+  "Code - Data\\market_chars.sas": {
+    "bytes": 30337,
+    "sha256": "0399109ccdf478d1b3202254a2fed0abe051c423041288443458feed9bce5929"
+  },
+  "Code - Data\\portfolios.R": {
+    "bytes": 31041,
+    "sha256": "04a9a3d0f7bd02e1dc74ea0a9bcca81bbc007f2c7110e1d13e6e4cc0dd2c1783"
+  },
+  "Code - Data\\project_macros.sas": {
+    "bytes": 49983,
+    "sha256": "616cbe2443707f4c3e7fb1009d296f5650aab1729238f0d7703b62645afa36ed"
+  },
+  "Data\\cmp.csv": {
+    "bytes": 48659760,
+    "sha256": "67ab33370978fe7606a351a326fc02c77aec6e507fe0d06a6dfd04505c2cc606"
+  },
+  "Data\\hml.csv": {
+    "bytes": 233436473,
+    "sha256": "f6b671a8b2a301db26b089bbad8e6d8682bb7ad6f491501b6dabb2537856a4f1"
+  },
+  "Data\\market_returns.csv": {
+    "bytes": 3684824,
+    "sha256": "a15f849a920dfc4082d74bff862b0dd4f60b53560308f25a1fdc952382ad57e3"
+  }
+}

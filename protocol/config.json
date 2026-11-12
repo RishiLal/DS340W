@@ -1,0 +1,102 @@
+{
+  "source_hashes": {
+    "JKP_current_US_factors.zip": "f766aa2c7db1f97594f79f9063275161b7038e936db9ea960eac6eb7ec27ca80",
+    "JKP_current_US_market.zip": "a90c1f2c8e89bf5cc45219d8f678696458412f19380769448bbaa2c9cc567752",
+    "OUTER_PROTOCOL_20261107.md": "CE46DE14DA6570969BD847D3E862FC9B59A968E87F4B6F2540DAA94D805F938C",
+    "METHOD_AMENDMENT_20261107.md": "7796B2BE99F8D6E673D9C490472DAF09EFD451E96EFBD488D430DB680A23C723"
+  },
+  "sample_split": {
+    "warmup": {
+      "start": "1974-01-01",
+      "end": "1974-12-31",
+      "months": 12,
+      "purpose": "Prior 12-month market returns for the initial January 1975 volatility state"
+    },
+    "training": {
+      "start": "1975-01-01",
+      "end": "2009-12-31",
+      "months": 420,
+      "share_pct": 68.62745098039215
+    },
+    "development_test": {
+      "start": "2010-01-01",
+      "end": "2020-12-31",
+      "months": 132,
+      "share_pct": 21.568627450980394
+    },
+    "final_validation": {
+      "start": "2021-01-01",
+      "end": "2025-12-31",
+      "months": 60,
+      "share_pct": 9.803921568627452
+    },
+    "total_target_months": 612
+  },
+  "inner_folds": [
+    {
+      "fold": 1,
+      "train_months": 210,
+      "train_end": "1992-06-30",
+      "val_months": 70,
+      "val_start": "1992-07-01",
+      "val_end": "1998-04-30"
+    },
+    {
+      "fold": 2,
+      "train_months": 280,
+      "train_end": "1998-04-30",
+      "val_months": 70,
+      "val_start": "1998-05-01",
+      "val_end": "2004-02-29"
+    },
+    {
+      "fold": 3,
+      "train_months": 350,
+      "train_end": "2004-02-29",
+      "val_months": 70,
+      "val_start": "2004-03-01",
+      "val_end": "2009-12-31"
+    }
+  ],
+  "universe": {
+    "screening_window_months": 210,
+    "min_stocks_per_leg": 5,
+    "require_nonzero_std": true,
+    "require_complete_returns": true,
+    "num_factors": 153,
+    "appended_asset": "mkt_vw_exc",
+    "total_test_assets": 154
+  },
+  "clustering": {
+    "method": "ward.D",
+    "distance": "1 - correlation",
+    "num_clusters": 13,
+    "adjustment": "market-adjusted factor returns (OLS beta on mkt_vw_exc over training prefix)"
+  },
+  "instrument": {
+    "definition": "trailing 12-month market excess return sample SD (ddof=1, denominator 11)",
+    "threshold": "2/3 quantile of training volatility",
+    "indicator": "strict greater-than",
+    "standardization": "(1{v > c} - p_H) / sqrt(p_H * (1 - p_H))"
+  },
+  "models": {
+    "sdf_representation": "M_t(b) = 1 - b' F_t (fixed intercept 1, p=14 theme payoffs)",
+    "ridge_objective": "||mu - A b||_2^2 / N + lambda ||b||_2^2 with N=154 for both fits",
+    "penalty_grid": {
+      "min_exponent": -8,
+      "max_exponent": 1,
+      "num_points": 31,
+      "type": "log_spaced"
+    },
+    "window_size": 3,
+    "shared_restrictions_normalization": "N=154 (constant weight per asset restriction)",
+    "evaluation_dictionary": "shared 308-moment dictionary [X_t, h_{t-1} X_t]"
+  },
+  "bootstrap": {
+    "num_resamples": 999,
+    "seed": 340,
+    "primary_block_length": 12,
+    "sensitivity_block_length": 6,
+    "type": "moving_block_paired"
+  }
+}

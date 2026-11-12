@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+env/
+local/
+runs/
+evidence/JKP_original_data.zip
+evidence/R_packages.csv
+evidence/R_sessionInfo.txt
+

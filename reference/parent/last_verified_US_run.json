@@ -1,0 +1,30 @@
+{
+  "scope": "Fresh US empirical Bayes benchmark only",
+  "checks": [
+    {
+      "result": "Table I: US tau_c",
+      "fresh_percent": 0.35088,
+      "published_percent": 0.35,
+      "within_printed_precision": true
+    },
+    {
+      "result": "Table I: US tau_w",
+      "fresh_percent": 0.20946,
+      "published_percent": 0.21,
+      "within_printed_precision": true
+    },
+    {
+      "result": "Figure 1: US EB replication rate",
+      "fresh_percent": 82.35294,
+      "published_percent": 82.4,
+      "within_printed_precision": true
+    }
+  ],
+  "unique_factors": 153,
+  "eligible": 119,
+  "positive": 98,
+  "draws": 10000,
+  "seed": 1,
+  "R": "R version 4.6.1 (2026-06-24 ucrt)",
+  "elapsed_seconds_including_input_verification": 120.97
+}

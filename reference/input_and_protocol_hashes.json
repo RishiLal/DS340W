@@ -1,0 +1,19 @@
+{
+  "data/splits/Test.csv": "8bb0a37a4e7bbed7874dc7f21b68c9611347726c234e397477955cf76d6d3702",
+  "data/splits/Training.csv": "7649f1688325b5469d20dd35ed6d8d0df088b7688fde500cff50c83c7f16cda0",
+  "data/splits/Validation.csv": "20aa2a83775f4b35ac4d843db82d1dc0db03857bebc0db1da9215786773d6166",
+  "evidence/JKP_current_US_factors.zip": "f766aa2c7db1f97594f79f9063275161b7038e936db9ea960eac6eb7ec27ca80",
+  "evidence/JKP_current_US_market.zip": "a90c1f2c8e89bf5cc45219d8f678696458412f19380769448bbaa2c9cc567752",
+  "protocol/config.json": "5363e687af288c2e35bfe757d30fa6c44b081c226df81e4ab2f6acf956db7444",
+  "protocol/DIAGNOSTIC_20261111.md": "4b813893840cdc067c1cafea0a686515ea299e45373c1bbf9263a8afff531df3",
+  "protocol/METHOD_AMENDMENT_20261107.md": "7796b2be99f8d6e673d9c490472daf09efd451e96efbd488d430db680a23c723",
+  "protocol/METHODOLOGY_PROPOSED.md": "6a4fa9a230f3e389058d31efe845e428a9b3cfe21bd08923f120a35bef8734f8",
+  "protocol/OUTER_PROTOCOL_20261107.md": "ce46de14da6570969bd847d3e862fc9b59a968e87f4b6f2540daa94d805f938c",
+  "reference/primary/bootstrap_results.json": "42c7bf0f8ba41e8f5db2b77dcdfad69b3bf29badcd681823c8e9b38755c93f11",
+  "reference/primary/config.json": "5363e687af288c2e35bfe757d30fa6c44b081c226df81e4ab2f6acf956db7444",
+  "reference/primary/frozen_models.json": "04f76aa370a0b2e34f30fcdc19968caf00fa9e8dfaec25a16f94cafe73e5d336",
+  "reference/primary/summary_table.md": "4a2fe0d24cfb0b1a4ee88f5825b8ba6cb4e17b2580f9c78b403b26f2f50b3eb3",
+  "reference/primary/test_evaluation.json": "04d45dfa004755571ebdca0f2fd47135b1e5757fc305ad6711b3f3fbcfad3451",
+  "reference/primary/tuning_curves.json": "65a8a002c605b961f89033a27cc94a5e79d25934eb3a7e92d0593533830db102",
+  "reference/primary/validation_evaluation.json": "b7d9f24bf9ac561c578f688d6210ac0b4bb581f560204d5ce78f4f4556eba21c"
+}
