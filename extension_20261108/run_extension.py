@@ -19,8 +19,9 @@ from extension_20261108.evaluate import evaluate_period_models, run_paired_movin
 
 OUTPUT_DIR = ROOT_DIR / "runs" / "primary"
 
-def main():
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+def main(output_dir=OUTPUT_DIR):
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
     start_time = time.time()
     print("==================================================================")
     print("STARTING EXTENSION PIPELINE: CONDITIONAL THEME PRICING & STABILITY")
@@ -56,14 +57,19 @@ def main():
     print(f"  Conditional Goldilocks (G):   lambda = {sel['conditional_goldilocks']['lambda_val']:.6e} (idx {sel['conditional_goldilocks']['lambda_idx']}), RMSE = {sel['conditional_goldilocks']['rmse']:.6f}")
     
     # Save tuning curves
-    (OUTPUT_DIR / "tuning_curves.json").write_text(json.dumps(tuning_res, indent=2))
+    (output_dir / "tuning_curves.json").write_text(json.dumps(tuning_res, indent=2))
     print("Saved tuning_curves.json")
     
     # 3. Refit and freeze full training models
     print("\n[Step 3/5] Refitting the four prespecified models on full 420 Training months...")
     frozen_models, transforms = fit_and_freeze_full_models(factors_panel, market_series, full_market, train_dates, sel)
-    (OUTPUT_DIR / "frozen_models.json").write_text(json.dumps(frozen_models, indent=2))
+    (output_dir / "frozen_models.json").write_text(json.dumps(frozen_models, indent=2))
     print("Saved frozen_models.json")
+    saved_transforms = {key: value for key, value in transforms.items()
+                        if key not in ("F_all", "X_all", "h_all")}
+    (output_dir / "training_transforms.json").write_text(
+        json.dumps(saved_transforms, indent=2, allow_nan=False))
+
     
     # Prepare matrices for Test and Validation
     F_all = transforms["F_all"]
@@ -87,7 +93,7 @@ def main():
     # 4. Evaluate on Development Test
     print("\n[Step 4/5] Evaluating on Development Test (Jan 2010–Dec 2020, 132 months)...")
     test_summary, test_MQ = evaluate_period_models(frozen_models, F_test, Q_test, f_scales, m_scale)
-    (OUTPUT_DIR / "test_evaluation.json").write_text(json.dumps(test_summary, indent=2))
+    (output_dir / "test_evaluation.json").write_text(json.dumps(test_summary, indent=2))
     print(f"Development Test Results:")
     for k, m_res in test_summary["models"].items():
         print(f"  {k} ({m_res['name']}): Loss = {m_res['loss']:.6f}, RMSE = {m_res['rmse']:.6f}, MAE = {m_res['mae_bps']:.2f} bps, RMSE = {m_res['rmse_bps']:.2f} bps")
@@ -98,7 +104,7 @@ def main():
     # 5. Evaluate on Final Validation & Bootstrap
     print("\n[Step 5/5] Evaluating on Final Primary Validation (Jan 2021–Dec 2025, 60 months)...")
     val_summary, val_MQ = evaluate_period_models(frozen_models, F_val, Q_val, f_scales, m_scale)
-    (OUTPUT_DIR / "validation_evaluation.json").write_text(json.dumps(val_summary, indent=2))
+    (output_dir / "validation_evaluation.json").write_text(json.dumps(val_summary, indent=2))
     
     print(f"Final Validation Results:")
     for k, m_res in val_summary["models"].items():
@@ -116,7 +122,7 @@ def main():
         "primary_block_12": boot_12,
         "sensitivity_block_6": boot_6
     }
-    (OUTPUT_DIR / "bootstrap_results.json").write_text(json.dumps(boot_res, indent=2))
+    (output_dir / "bootstrap_results.json").write_text(json.dumps(boot_res, indent=2))
     
     # Print bootstrap intervals
     ci12 = boot_12["ci_intervals"]
@@ -148,7 +154,7 @@ def main():
 | **Goldilocks (G)** | Loss: {test_summary['models']['U_G']['loss']:.6f}<br>RMSE: {test_summary['models']['U_G']['rmse']:.6f}<br>Unc MAE: {test_summary['models']['U_G']['mae_bps']:.2f} bps | Loss: {test_summary['models']['C_G']['loss']:.6f}<br>RMSE: {test_summary['models']['C_G']['rmse']:.6f}<br>Unc MAE: {test_summary['models']['C_G']['mae_bps']:.2f} bps | $\\Delta_G = {test_summary['delta_goldilocks']:.6f}$ |
 | **Tuning Contrast (G − M)** | Loss Diff: {test_summary['models']['U_G']['loss'] - test_summary['models']['U_M']['loss']:.6f} | Loss Diff: {test_summary['models']['C_G']['loss'] - test_summary['models']['C_M']['loss']:.6f} | **Interaction $I = {test_summary['interaction']:.6f}$** |
 """
-    (OUTPUT_DIR / "summary_table.md").write_text(md_table, encoding="utf-8")
+    (output_dir / "summary_table.md").write_text(md_table, encoding="utf-8")
     print("Saved summary_table.md")
     
     elapsed = time.time() - start_time

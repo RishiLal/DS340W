@@ -4,6 +4,10 @@ Start with the [central research plan, results and three-day checklist](RESEARCH
 
 ## Replay the extension
 
+The complete data-to-tables command is `python pipeline.py`. It uses a fresh timestamped folder under `runs`. With an explicit destination, use `python pipeline.py --out runs/my_verified_run`. Existing destinations are rejected. It verifies the input archives, rebuilds the three split CSVs and the 1974 market warm-up, runs the nine tests, fits the primary and diagnostic models, compares ten numerical files to the saved references, and generates CSV/Markdown research tables. The diagnostic in this command uses the newly fitted primary baseline. Each stage writes a log. `run_manifest.json` records completion status, runtime, environment, source/input hashes and output hashes. A failure preserves its logs and sets status to `failed`.
+
+After dependencies are installed as below, run ` .\.venv\Scripts\python.exe pipeline.py ` in PowerShell. Open the new folder's `tables/METHODS_AND_RESULTS.md`, `validation_primary.md`, `validation_diagnostic.md` and `primary_contrasts.md`. Both periods' CSV tables and the diagnostic intervals are supplied alongside them. The original single-stage commands below remain available.
+
 Run these commands from the release root. The reference system used Windows, Python 3.12.13, NumPy 2.5.4, pandas 3.1.1 and R 4.6.1. The extension uses base R for Ward.D. Set the environment variable RSCRIPT to its executable if Rscript is outside PATH and outside a standard Windows installation. Use regular Python with assertions enabled. In PowerShell:
 
 ~~~powershell

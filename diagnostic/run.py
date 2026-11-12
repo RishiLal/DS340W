@@ -120,19 +120,19 @@ def paired_draws(moments, length):
     return pd.DataFrame(rows)
 
 
-def run(dest):
+def run(dest, primary=PRIMARY, split_dir=ROOT / "data/splits"):
     hashes = json.loads((ROOT / "reference/input_and_protocol_hashes.json").read_text())
     for name, expected in hashes.items():
         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == expected, name
     panel, market, hist, _, dates = load_screened_universe()
     months = pd.PeriodIndex(dates, freq="M")
     assert months.equals(pd.period_range("1975-01", "2025-12", freq="M"))
-    exports = [pd.read_csv(ROOT / "data/splits" / (role + ".csv"), index_col="date")
+    exports = [pd.read_csv(split_dir / (role + ".csv"), index_col="date")
                for role in ("Training", "Test", "Validation")]
     assert [len(p) for p in exports] == [420, 132, 60]
     pd.testing.assert_frame_equal(pd.concat(exports), panel.assign(mkt_vw_exc=market),
                                   rtol=0, atol=1e-15, check_names=False)
-    saved = json.loads((PRIMARY / "frozen_models.json").read_text())
+    saved = json.loads((primary / "frozen_models.json").read_text())
     curve = fit_curves_and_check(panel, market, hist)
     json_file(dest / "tuning_and_checks.json", curve)
     z, q, _, fit_meta = build(panel, market, hist, 420, 420)
@@ -152,7 +152,7 @@ def run(dest):
     assert meta == fit_meta
     results, contrasts, all_draws = [], [], []
     for period, start, end, reference in (("Test",420,552,"test"), ("Validation",552,612,"validation")):
-        prior = json.loads((PRIMARY / (reference + "_evaluation.json")).read_text())
+        prior = json.loads((primary / (reference + "_evaluation.json")).read_text())
         rows, moments = {}, {}
         for name, b in coef.items():
             score_basis = z[start:end, :len(b)]

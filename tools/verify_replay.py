@@ -22,12 +22,13 @@ def compare(expected, actual, key):
         assert expected == actual, key
 
 
-if __name__ == "__main__":
+def verify(output_root=ROOT / "runs"):
+    results = []
     for group in ("primary", "diagnostic"):
         for ref in sorted((ROOT / "reference" / group).iterdir()):
             if ref.name in ("config.json", "summary_table.md"):
                 continue
-            out = ROOT / "runs" / group / ref.name
+            out = output_root / group / ref.name
             identical = ref.read_bytes() == out.read_bytes()
             if not identical:
                 if ref.suffix == ".csv":
@@ -35,5 +36,13 @@ if __name__ == "__main__":
                                                   check_exact=False, atol=1e-11, rtol=1e-9)
                 else:
                     compare(json.loads(ref.read_text()), json.loads(out.read_text()), ref.name)
-            print(group, ref.name, "byte-identical" if identical else "within tolerance")
+            status = "byte-identical" if identical else "within tolerance"
+            print(group, ref.name, status)
+            results.append(dict(group=group, file=ref.name, status=status))
+    return results
+
+
+if __name__ == "__main__":
+    verify()
+
 

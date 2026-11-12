@@ -46,6 +46,8 @@ The original contribution is the controlled comparison of conditioning and tunin
 
 ## Completion ledger
 
+**November 12 pipeline update.** `python pipeline.py` now rebuilds the three split CSVs and market warm-up from the pinned archives, fits both experiments, checks ten numerical reference outputs and generates the manuscript tables in a fresh run folder. Use the run's `tables/METHODS_AND_RESULTS.md` for the implemented method and `run_manifest.json` for status and provenance. The overnight Gemini audit tables misdescribed the volatility state, Goldilocks selector and parameter counts. Use the regenerated tables for writing.
+
 | Item | Evidence and status |
 |---|---|
 | Parent US demonstration | Fresh Nov 11 run at the original 10,000 draws returned 0.35088% and 0.20946% against printed 0.35% and 0.21%. 98/119 originally significant factors met the US replication criterion (82.4%). [Fresh run](reference/parent/fresh_US_20261111.json) |
