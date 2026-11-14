@@ -25,6 +25,7 @@ from extension_20261108.tuning import (
     fit_and_freeze_full_models
 )
 from extension_20261108.evaluate import evaluate_period_models, run_paired_moving_block_bootstrap
+from diagnostic.run import paired_draws
 
 class TestExtensionPipeline(unittest.TestCase):
     
@@ -167,23 +168,62 @@ class TestExtensionPipeline(unittest.TestCase):
         self.assertEqual(res_tie["best_penalty_idx"], 0)
 
     def test_09_paired_bootstrap_alignment(self):
-        """Verify that bootstrap resamples sample rows identically across all 4 models."""
+        """
+        Verify that bootstrap resamples sample rows identically across all compared models.
+        Uses a deterministic, nonconstant time-series fixture to verify:
+          1. Individual bootstrap loss distributions exhibit positive variation across draws.
+          2. Identically specified models yield exactly zero paired differences and zero interval spread.
+          3. Diagnostic paired_draws exhibits zero paired difference across draws for identical inputs.
+          4. Deliberate mispairing (temporal displacement) produces non-zero difference spread,
+             proving the fixture detects misaligned time-series draws.
+        """
         T, d = 60, 308
+        t = np.arange(T, dtype=float)[:, None]
+        j = np.arange(d, dtype=float)[None, :]
+        base_series = np.sin(2 * np.pi * t / 12.0) + (t / T) + 0.1 * np.cos(j / 10.0)
+
+        # 1. Primary bootstrap with identical nonconstant inputs across models
         MQ_dict = {
-            "U_M": np.ones((T, d)) * 1.0,
-            "U_G": np.ones((T, d)) * 2.0,
-            "C_M": np.ones((T, d)) * 3.0,
-            "C_G": np.ones((T, d)) * 4.0
+            "U_M": base_series,
+            "U_G": base_series,
+            "C_M": base_series,
+            "C_G": base_series
         }
-        res = run_paired_moving_block_bootstrap(MQ_dict, block_length=12, num_resamples=100, seed=340)
-        # Because rows are constant across time, resampled losses must equal original losses
-        ci = res["ci_intervals"]
-        self.assertAlmostEqual(ci["L_U_M"]["mean"], 1.0)
-        self.assertAlmostEqual(ci["L_U_G"]["mean"], 4.0)
-        self.assertAlmostEqual(ci["L_C_M"]["mean"], 9.0)
-        self.assertAlmostEqual(ci["L_C_G"]["mean"], 16.0)
-        # Delta_G = 16 - 4 = 12
-        self.assertAlmostEqual(ci["delta_goldilocks"]["mean"], 12.0)
+        for block_len in (12, 6):
+            res = run_paired_moving_block_bootstrap(MQ_dict, block_length=block_len, num_resamples=100, seed=340)
+            ci = res["ci_intervals"]
+
+            # Resampled losses must vary across draws due to the nonconstant time series
+            self.assertGreater(ci["L_U_G"]["std"], 0.0)
+            self.assertGreater(ci["L_U_G"]["p975"], ci["L_U_G"]["p025"])
+
+            # Paired differences and interaction must be identically zero for identical inputs
+            for stat in ("delta_goldilocks", "delta_minimum", "interaction"):
+                self.assertEqual(ci[stat]["mean"], 0.0)
+                self.assertEqual(ci[stat]["std"], 0.0)
+                self.assertEqual(ci[stat]["p025"], 0.0)
+                self.assertEqual(ci[stat]["p50"], 0.0)
+                self.assertEqual(ci[stat]["p975"], 0.0)
+
+        # 2. Diagnostic paired_draws helper with identical inputs
+        moments = {"M1": base_series, "M2": base_series}
+        df_draws = paired_draws(moments, length=12)
+        diff = df_draws["M1"] - df_draws["M2"]
+        np.testing.assert_array_equal(diff.to_numpy(), np.zeros(len(df_draws)))
+        self.assertGreater(df_draws["M1"].std(), 0.0)
+
+        # 3. Deliberately mispaired control: phase-shifted series must produce non-zero spread
+        misaligned = np.roll(base_series, shift=6, axis=0)
+        unpaired_dict = {
+            "U_M": base_series,
+            "U_G": base_series,
+            "C_M": misaligned,
+            "C_G": misaligned
+        }
+        res_unpaired = run_paired_moving_block_bootstrap(unpaired_dict, block_length=12, num_resamples=100, seed=340)
+        ci_unp = res_unpaired["ci_intervals"]
+        self.assertGreater(ci_unp["delta_goldilocks"]["std"], 0.0)
+        self.assertGreater(ci_unp["delta_goldilocks"]["p975"] - ci_unp["delta_goldilocks"]["p025"], 0.0)
 
 if __name__ == "__main__":
     unittest.main()
