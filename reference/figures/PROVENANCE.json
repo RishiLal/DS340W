@@ -1,0 +1,19 @@
+{
+  "source_run": "runs/publication_verified_20261118",
+  "generator": "tools/build_figures.py",
+  "generator_sha256": "eac00521051ad0bc8787ea96f9303df1859b593ed08ac0ada7591742cae6911a",
+  "requirements_sha256": "861be9f36f5dc649055f780dff47359f9c1c3bad21256c5d2ea543fad0d319a2",
+  "python": "3.12.13",
+  "matplotlib": "3.11.2",
+  "hashes": {
+    "figure_index.json": "7aaa5cbe7230199746ab541ada7cbb3080d060db28ce1180d5a5568c859598c6",
+    "figure1_loss_decomposition.pdf": "63e080fa88f0fc312e736f4cab4a2aabdc270d2e4a13d8143024b24f736dbf4a",
+    "figure1_loss_decomposition.png": "a467ad972f66e2ce4513db2f6e446b0c8ba99634d4f0198fe3fd78bdde557b10",
+    "figure2_contrasts_uncertainty.pdf": "6c1e79bc92885fced83d222ffe9645248940440e1d374aa71b5c54a92b8f2320",
+    "figure2_contrasts_uncertainty.png": "2c92a220b36cc67e6a3e8823882ca6f3e3960fdb14fa00145993fd2dbd0bf6cf",
+    "figure3_tuning_curves.pdf": "929b87ff81fdd671995c5fa26cc28ad5ea878092d44904fedfa9c630763b2e74",
+    "figure3_tuning_curves.png": "4b6311861940a6cb10383f734e69d2edb91c73442293ad6605fa3d1261ea8c7b",
+    "figures_data.json": "c304b6a15bef30d44a376b1aff8c17a2d2f8bdbe85b1d71ebfda4251b9bfbfb3",
+    "FIGURES.md": "62ec1549eb9410e3438b4e53d0c57034c4f3f8b26dd0ac112540b8b6f5ffbcd5"
+  }
+}

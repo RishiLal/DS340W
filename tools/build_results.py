@@ -21,10 +21,16 @@ def write_table(path, title, frame, digits=8):
 
 
 def build(run):
+    transforms_file = run / "primary/training_transforms.json"
+    if not transforms_file.is_file():
+        raise FileNotFoundError(
+            f"Missing learned training metadata: {transforms_file}. "
+            "Run the primary fitting stage before generating reports."
+        )
+    transforms = read(transforms_file)
     dest = run / "tables"
-    dest.mkdir()
+    dest.mkdir(exist_ok=True)
     fits = read(run / "primary/frozen_models.json")
-    transforms = read(run / "primary/training_transforms.json")
     diagnostic = pd.read_csv(run / "diagnostic/models.csv")
     all_contrasts = pd.read_csv(run / "diagnostic/contrasts.csv")
     tuning = read(run / "primary/tuning_curves.json")

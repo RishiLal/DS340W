@@ -3,6 +3,7 @@ import argparse
 from contextlib import redirect_stderr, redirect_stdout
 from datetime import datetime, timezone
 import hashlib
+import importlib.metadata
 import json
 from pathlib import Path
 import platform
@@ -13,15 +14,20 @@ import traceback
 
 import numpy as np
 import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
 
 from diagnostic.run import run as diagnostic
 from extension_20261108.clustering import rscript
 from extension_20261108.run_extension import main as primary
+from tools.build_figures import build_figures
 from tools.build_results import build
 from tools.prepare_splits import prepare
 from tools.verify_replay import verify
 
 ROOT = Path(__file__).resolve().parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 
 def digest(path):
@@ -30,9 +36,22 @@ def digest(path):
 
 
 def git(args):
-    return subprocess.check_output(
-        ["git", "--no-optional-locks", "-C", str(ROOT), *args], text=True
-    ).strip()
+    try:
+        top = subprocess.run(
+            ["git", "--no-optional-locks", "-C", str(ROOT), "rev-parse", "--show-toplevel"],
+            capture_output=True, text=True, check=False
+        )
+        if top.returncode != 0 or Path(top.stdout.strip()).resolve() != ROOT.resolve():
+            return None
+        res = subprocess.run(
+            ["git", "--no-optional-locks", "-C", str(ROOT), *args],
+            capture_output=True, text=True, check=False
+        )
+        if res.returncode == 0:
+            return res.stdout.strip()
+        return None
+    except (FileNotFoundError, PermissionError):
+        return None
 
 
 def main():
@@ -48,11 +67,23 @@ def main():
     dest.mkdir(parents=True)
     logs = dest / "logs"
     logs.mkdir()
-    manifest = dict(status="running", started_utc=stamp, commit=git(["rev-parse", "HEAD"]),
-                    working_tree=git(["status", "--porcelain", "--untracked-files=normal"]),
+    commit_raw = git(["rev-parse", "HEAD"])
+    tree_raw = git(["status", "--porcelain", "--untracked-files=normal"])
+    manifest = dict(status="running", started_utc=stamp,
+                    commit=commit_raw if commit_raw is not None else "unavailable (no git metadata or executable)",
+                    working_tree=tree_raw if tree_raw is not None else "unavailable",
+                    git_available=commit_raw is not None,
                     python=platform.python_version(), platform=platform.platform(),
-                    numpy=np.__version__, pandas=pd.__version__, stages=[])
-    sources = sorted([ROOT / "pipeline.py", *ROOT.glob("tools/*.py"),
+                    numpy=np.__version__, pandas=pd.__version__, matplotlib=matplotlib.__version__,
+                    requirements_sha256=digest(ROOT / "requirements.txt"),
+                    installed_packages={
+                        dist.metadata["Name"]: dist.version
+                        for dist in sorted(importlib.metadata.distributions(), key=lambda d: (d.metadata["Name"] or "").lower())
+                        if dist.metadata["Name"]
+                    },
+                    stages=[])
+    sources = sorted([ROOT / "pipeline.py", ROOT / "requirements.txt",
+                      *ROOT.glob("tools/*.py"),
                       *ROOT.glob("extension_20261108/*.py"), *ROOT.glob("diagnostic/*.py"),
                       *ROOT.glob("protocol/*"), *ROOT.glob("evidence/JKP_current_US*.zip")])
     manifest["source_and_input_sha256"] = {p.relative_to(ROOT).as_posix(): digest(p) for p in sources}
@@ -62,7 +93,18 @@ def main():
         path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
     def preflight():
-        manifest["R"] = subprocess.check_output([rscript(), "--version"], text=True).strip()
+        try:
+            r_exec = rscript()
+            manifest["R"] = subprocess.check_output([r_exec, "--version"], text=True).strip()
+        except FileNotFoundError as err:
+            raise FileNotFoundError(
+                "R executable (Rscript) not found.\n"
+                "Actionable setup instructions:\n"
+                "  1. Install R (version 4.0+) from https://cloud.r-project.org/\n"
+                "  2. Add Rscript to your system PATH (e.g. C:\\Program Files\\R\\R-4.6.1\\bin), OR\n"
+                "  3. Set the RSCRIPT environment variable to the Rscript executable path\n"
+                "     (e.g. in PowerShell: $env:RSCRIPT = 'C:\\Program Files\\R\\R-4.6.1\\bin\\Rscript.exe')"
+            ) from err
 
     steps = [
         ("preflight", preflight),
@@ -74,6 +116,7 @@ def main():
         ("diagnostic", lambda: diagnostic(dest / "diagnostic", dest / "primary", dest / "splits")),
         ("numerical_comparison", lambda: verify(dest)),
         ("tables", lambda: build(dest)),
+        ("figures", lambda: build_figures(dest)),
     ]
     save()
     started = time.monotonic()
@@ -106,7 +149,8 @@ def main():
         manifest["status"] = "passed"
     except Exception:
         manifest["status"] = "failed"
-        manifest["stages"][-1]["status"] = "failed"
+        if manifest["stages"] and manifest["stages"][-1]["status"] == "running":
+            manifest["stages"][-1]["status"] = "failed"
         (logs / "failure.log").write_text(traceback.format_exc(), encoding="utf-8")
         raise
     finally:

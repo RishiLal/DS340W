@@ -1,0 +1,41 @@
+# Publication Figures Index & Manuscript Placements
+
+This directory contains vector PDF and 300 DPI PNG figures generated directly from current run numerical artifacts.
+
+| Figure | Vector PDF | High-Res PNG | Suggested Manuscript Placement |
+|---|---|---|---|
+| **Figure 1: Loss Decomposition** | [figure1_loss_decomposition.pdf](figure1_loss_decomposition.pdf) | [figure1_loss_decomposition.png](figure1_loss_decomposition.png) | Section 4: Primary Empirical Findings (Loss Decomposition) |
+| **Figure 2: Loss Differences & CI** | [figure2_contrasts_uncertainty.pdf](figure2_contrasts_uncertainty.pdf) | [figure2_contrasts_uncertainty.png](figure2_contrasts_uncertainty.png) | Section 4: Primary Hypothesis Testing & Statistical Uncertainty |
+| **Figure 3: Tuning Curves** | [figure3_tuning_curves.pdf](figure3_tuning_curves.pdf) | [figure3_tuning_curves.png](figure3_tuning_curves.png) | Section 3 / 4: Model Tuning, Regularization & Selection |
+
+## Detailed Captions
+
+### Figure 1: Decomposition of Out-of-Sample Squared Pricing Loss
+
+- **PDF:** `figure1_loss_decomposition.pdf`
+- **PNG:** `figure1_loss_decomposition.png`
+- **Source Artifacts:** `tables/test_primary.csv`, `tables/validation_primary.csv`
+- **Plotted Fields:** `ordinary`, `managed`, `loss`
+- **Placement:** Section 4: Primary Empirical Findings (Loss Decomposition and Validation Results)
+
+> **Caption:** Figure 1: Decomposition of out-of-sample squared pricing loss across evaluation periods. Bars display total scaled squared pricing loss (L = (1/308) * sum e_m^2) for the unconditional SDF (U, 14 coefficients) and static conditional SDF (C1, 14 coefficients) across Development Test (January 2010–December 2020, 132 months) and Final Validation (January 2021–December 2025, 60 months). Each stacked bar decomposes total loss into contributions from the 154 ordinary asset restrictions (bottom) and the 154 volatility-managed asset restrictions (top), both scaled by common denominator 308 so components sum to reported total loss. In Development Test, conditioning yielded a loss change from 0.007781 to 0.007708 (Delta = -0.000074). In Final Validation, the managed contribution changed from 0.003448 to 0.003399 (-0.000049), and the ordinary contribution changed from 0.011899 to 0.013075 (+0.001176). Total loss changed from 0.015347 to 0.016473 (+7.34%). Plotted values represent squared period-mean pricing errors on discounted payoffs (not average monthly squared errors or investment returns).
+
+### Figure 2: Validation Loss Differences and 95% Bootstrap Intervals (2021–2025)
+
+- **PDF:** `figure2_contrasts_uncertainty.pdf`
+- **PNG:** `figure2_contrasts_uncertainty.png`
+- **Source Artifacts:** `tables/primary_contrasts.csv`, `tables/diagnostic_contrasts.csv`
+- **Plotted Fields:** `difference`, `contrast`, `lower`, `upper`, `block`
+- **Placement:** Section 4: Primary Hypothesis Testing & Statistical Uncertainty
+
+> **Caption:** Figure 2: Out-of-sample loss contrasts and 95% moving-block bootstrap confidence intervals (Final Validation 2021–2025). Point estimates and 95% paired bootstrap intervals for pairwise differences in scaled squared pricing loss (Delta L) over the 60-month final validation period (January 2021–December 2025). Resampling uses 999 paired moving-block draws (seed 340) with primary 12-month blocks (solid whiskers, circles) and 6-month sensitivity blocks (dashed whiskers, squares) conditioning on frozen model coefficients. Negative differences (Delta L < 0) indicate superior pricing accuracy for the first-named model. The primary comparison (C1 - U, top) evaluates whether adding 154 volatility-managed restrictions reduces pricing loss; the observed difference is +0.001126 (12-mo 95% CI: [-0.000278, +0.007289]; 6-mo CI: [-0.000562, +0.005995]), with negative differences favoring conditional fitting. Minimum-error and Goldilocks selectors make identical choices (lambda_M = lambda_G = 2.51 for C1, 1.26 for U), resulting in an exact zero tuning interaction (I = 0.000000 [0.000000, 0.000000]). The exploratory diagnostic contrasts (bottom) examine an expanded 28-coefficient SDF (C2); both the matched-penalty contrast (C2-matched - C1, lambda=2.51, Delta = +0.000056, 12-mo CI: [-0.000472, +0.003473]) and separately tuned contrast (C2_G - C1, lambda=10.00, Delta = +0.001270, 12-mo CI: [-0.000600, +0.008900]) are exploratory. All displayed intervals include zero, leaving population direction uncertain. Loss is defined as squared period-mean pricing errors (not average monthly squared errors).
+
+### Figure 3: Training Forward-Fold Tuning Curves and Penalty Selection
+
+- **PDF:** `figure3_tuning_curves.pdf`
+- **PNG:** `figure3_tuning_curves.png`
+- **Source Artifacts:** `primary/tuning_curves.json`, `diagnostic/tuning_and_checks.json`
+- **Plotted Fields:** `curves_data.lambdas`, `curves_data.unconditional_rmse`, `curves_data.conditional_rmse`, `pooled_rmse`, `selection_summary`, `goldilocks`
+- **Placement:** Section 3 / Section 4: Model Tuning, Regularization, and Parameter Selection
+
+> **Caption:** Figure 3: Penalty-selection curves and Goldilocks window evaluation. Panels show pooled root mean squared pricing error (Tuning RMSE) across expanding forward validation folds within the Training sample (January 1975–December 2009, 420 months) plotted against the 31 log-spaced ridge penalties (lambda in [1e-08, 1e+01]) for: (A) Unconditional model (U, 14 coefficients), (B) Static conditional model (C1, 14 coefficients), and (C) Exploratory state-interacted model (C2, 28 coefficients). The winning 3-penalty Goldilocks window (minimizing normalized window mean RMSE plus normalized variance) is indicated by the shaded region. Markers identify the selected penalties under minimum-error (lambda_M) and Goldilocks (lambda_G) rules. In all three models, minimum-error and Goldilocks tuning choose the exact same penalty: lambda = 1.2589 for U, lambda = 2.512 for C1, and lambda = 10 for C2. In Panel C, the selected penalty of 10 sits at the upper boundary of the prespecified grid. The penalty applies to all 28 coefficients; values beyond the tested grid were not evaluated. Loss is defined as squared period-mean pricing errors (not average monthly squared errors).

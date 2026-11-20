@@ -1,0 +1,86 @@
+{
+  "status": "passed",
+  "scope": "new Git-free source copy; isolated Python environment installed and verified earlier on the same Windows laptop",
+  "source_run": "runs/publication_verified_20261118",
+  "runtime_seconds": 32.469,
+  "tests_passed": 16,
+  "tests_skipped": 0,
+  "stage_count": 8,
+  "source_and_input_sha256": {
+    "diagnostic/run.py": "cf870b69abe13e0bd73d88ff12b2c265fcaf1cc8cc8dc66d2287252678c47ba9",
+    "evidence/JKP_current_US_factors.zip": "f766aa2c7db1f97594f79f9063275161b7038e936db9ea960eac6eb7ec27ca80",
+    "evidence/JKP_current_US_market.zip": "a90c1f2c8e89bf5cc45219d8f678696458412f19380769448bbaa2c9cc567752",
+    "extension_20261108/__init__.py": "6bc0e335fef02018189ceabbea8d1183ed77f0eed886c92dee6ec5cbff8156c9",
+    "extension_20261108/clustering.py": "5d2ea2677222be5d976282f41471b6bb377d2a38b7c6e8ce339cb77daa580752",
+    "extension_20261108/data.py": "645a9f77443a661f6b7442741efae21a08481bc5cc3fe0649c06bacc128a7c38",
+    "extension_20261108/evaluate.py": "04d2f4fede116a1268140d98abb823eba9b33dc6dc1fc6d8fb6fa4bda6730623",
+    "extension_20261108/models.py": "b2c80067ef11a002fa89d6cd5772db525456f7e8f471084a45231f5aa48b7a1f",
+    "extension_20261108/run_extension.py": "1f4932d2bdd748418880a3bea71f1e3ad695b6aead86831c4496a1e19ffd799f",
+    "extension_20261108/test_pipeline.py": "47761d4a29a7b2b00f524117944a56e7bbede255a67a8fc894f0e651ea7c34f7",
+    "extension_20261108/tuning.py": "6f9a121c1f6118a26d1f7ade0c520e3baedd1a82d11be6d47498435d7bcca36f",
+    "pipeline.py": "c832060da584e5fda8ac94c6adedeb83eb1c3e6ffbbf4f62c7cd4a6744dc7162",
+    "protocol/config.json": "5363e687af288c2e35bfe757d30fa6c44b081c226df81e4ab2f6acf956db7444",
+    "protocol/DIAGNOSTIC_20261111.md": "4b813893840cdc067c1cafea0a686515ea299e45373c1bbf9263a8afff531df3",
+    "protocol/METHOD_AMENDMENT_20261107.md": "7796b2be99f8d6e673d9c490472daf09efd451e96efbd488d430db680a23c723",
+    "protocol/METHODOLOGY_PROPOSED.md": "6a4fa9a230f3e389058d31efe845e428a9b3cfe21bd08923f120a35bef8734f8",
+    "protocol/OUTER_PROTOCOL_20261107.md": "ce46de14da6570969bd847d3e862fc9b59a968e87f4b6f2540daa94d805f938c",
+    "requirements.txt": "861be9f36f5dc649055f780dff47359f9c1c3bad21256c5d2ea543fad0d319a2",
+    "tools/build_figures.py": "eac00521051ad0bc8787ea96f9303df1859b593ed08ac0ada7591742cae6911a",
+    "tools/build_results.py": "c5b41378f8253be2cd01cc617c9d6ed3d2682116958e40dea0635a8c56fa00bd",
+    "tools/compare_native.py": "d8ef9216f36a27f5504da3361c64c153829054c5cc88774e9d0d64c70fe427d0",
+    "tools/prepare_splits.py": "924d8f2ae2cb41f0eef6ce5d7dd6337556f8d668c2cfb67549ead6ce4dd8c0fb",
+    "tools/verify_replay.py": "17fefd6373735f4d5bf338d399424d5e7fae49adce4a14dafaeef99cc463ec8a"
+  },
+  "requirements_sha256": "861be9f36f5dc649055f780dff47359f9c1c3bad21256c5d2ea543fad0d319a2",
+  "installed_packages": {
+    "contourpy": "1.4.0",
+    "cycler": "0.12.1",
+    "fonttools": "4.68.0",
+    "kiwisolver": "1.5.1",
+    "matplotlib": "3.11.2",
+    "numpy": "2.5.4",
+    "packaging": "26.3",
+    "pandas": "3.1.1",
+    "pillow": "13.0.0",
+    "pip": "25.0.1",
+    "pyparsing": "3.3.3",
+    "python-dateutil": "4.0.0",
+    "tzdata": "2026.6"
+  },
+  "numerical_artifacts_byte_identical": [
+    "primary/bootstrap_results.json",
+    "primary/frozen_models.json",
+    "primary/test_evaluation.json",
+    "primary/tuning_curves.json",
+    "primary/validation_evaluation.json",
+    "diagnostic/contrasts.csv",
+    "diagnostic/fits.json",
+    "diagnostic/models.csv",
+    "diagnostic/paired_draws.csv",
+    "diagnostic/tuning_and_checks.json"
+  ],
+  "output_hashes_verified": 47,
+  "negative_checks": [
+    {
+      "check": "existing_output",
+      "expected_exit": 2,
+      "actual_exit": 2
+    },
+    {
+      "check": "optimized_python",
+      "expected_exit": 2,
+      "actual_exit": 2
+    },
+    {
+      "check": "missing_r",
+      "expected_exit": 1,
+      "actual_exit": 1
+    }
+  ],
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.13",
+  "R": "Rscript (R) version 4.6.1 (2026-06-24)",
+  "published": false,
+  "independent_machine_tested": false,
+  "other_os_tested": false
+}
