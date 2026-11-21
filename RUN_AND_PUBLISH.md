@@ -73,7 +73,7 @@ Skip the acquisition command if the archive already exists. The demo saves its s
 
 ## Owner: prepare the reviewed GitHub version
 
-No publication is performed by this guide or by the verification command. The current local branch is `codex/jkp-release`; its configured origin is `https://github.com/RishiLal/DS340W.git`. Verify both before using the publication commands. Do not publish the surrounding legacy DS340W folder as this release.
+No publication is performed by this guide or by the verification command. The current local branch is `DS340W-project-code`; its configured origin is `https://github.com/RishiLal/DS340W.git`. Verify both before using the publication commands. Do not publish the surrounding legacy DS340W folder as this release.
 
 1. Review [RELEASE_VERIFICATION.md](RELEASE_VERIFICATION.md), the figures, and `git diff`. Check that the package contains the intended source, data, documentation, and new files. No open-source license is currently assigned to the project's own code; preserve third-party notices and terms.
 2. Stage only the intended release changes. The current cleanup's intended files are:
@@ -95,7 +95,7 @@ git diff --cached
 
 The required input archives, numerical references, split CSVs, and submodule pointer are already tracked. Verify that the staged list does not include environments, old runs, credentials, unrelated documents, or the historical ZIP. The older audit is preserved in the ignored local `runs/publication_check_20261120/` evidence folder.
 
-In **GitHub Desktop**, choose repository **DS340W**, then choose **Current worktree > jkp_20261111**. Confirm the branch is **codex/jkp-release**. Review the same intended changes, enter the commit summary below, and commit. Use **Publish branch** for its first push, or **Push origin** for subsequent commits. The main worktree contains the legacy project and thousands of unrelated local audit files; it is not the release package.
+In **GitHub Desktop**, choose repository **DS340W**, then choose **Current worktree > jkp_20261111**. Confirm the branch is **DS340W-project-code**. Review the same intended changes, enter the commit summary below, and commit. Use **Publish branch** for its first push, or **Push origin** for subsequent commits. The main worktree contains the legacy project and thousands of unrelated local audit files; it is not the release package.
 
 3. Create the local commit after reviewing the staged content:
 
@@ -106,7 +106,7 @@ git commit -m "Finalize reproducible JKP extension and figures"
 4. After you explicitly decide to publish, push the named release branch (do not force-push):
 
 ```powershell
-git push -u origin codex/jkp-release
+git push -u origin DS340W-project-code
 ```
 
 GitHub's [push documentation](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository) explains the remote/branch arguments. If the push is rejected because the remote has newer work, inspect and reconcile it; do not overwrite it.
@@ -117,7 +117,7 @@ GitHub's [push documentation](https://docs.github.com/en/get-started/using-git/p
 Example clone command, usable after the branch has been published:
 
 ```powershell
-git clone --branch codex/jkp-release https://github.com/RishiLal/DS340W.git DS340W-reproduce
+git clone --branch DS340W-project-code https://github.com/RishiLal/DS340W.git DS340W-reproduce
 Set-Location DS340W-reproduce
 ```
 

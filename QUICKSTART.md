@@ -4,12 +4,12 @@ These steps run the new DS340W methodology and generate its tables and three fig
 
 ## 1. Download the correct version
 
-On GitHub, select the release branch `codex/jkp-release` (or the exact commit linked in the submission). Choose **Code → Download ZIP**, then extract it. Open a terminal in the extracted folder that contains `pipeline.py` and `requirements.txt`.
+On GitHub, select the release branch `DS340W-project-code` (or the exact commit linked in the submission). Choose **Code → Download ZIP**, then extract it. Open a terminal in the extracted folder that contains `pipeline.py` and `requirements.txt`.
 
 If you use Git, after the release is published:
 
 ```powershell
-git clone --branch codex/jkp-release https://github.com/RishiLal/DS340W.git DS340W-reproduce
+git clone --branch DS340W-project-code https://github.com/RishiLal/DS340W.git DS340W-reproduce
 Set-Location DS340W-reproduce
 ```
 
